@@ -12,7 +12,7 @@ import java.util.List;
  * Created by FTE on 2016/12/8.
  */
 
-public class AdapterHead extends RecyclerView.Adapter<AdapterHead.ViewHolder> {
+public class SeriesSelectorHeadAdapter extends RecyclerView.Adapter<SeriesSelectorHeadAdapter.ViewHolder> {
 
     private List<Integer> list;
 

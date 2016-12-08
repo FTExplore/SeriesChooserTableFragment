@@ -12,7 +12,7 @@ import java.util.List;
  * Created by FTE on 2016/12/8.
  */
 
-public class AdatperTable extends RecyclerView.Adapter<AdatperTable.TableViewHolder> {
+public class SeriesSelectorTableAdapter extends RecyclerView.Adapter<SeriesSelectorTableAdapter.TableViewHolder> {
 
     private List<Integer> dataList;
 

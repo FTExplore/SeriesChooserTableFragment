@@ -2,7 +2,6 @@ package com.example.administrator.myapplication;
 
 
 import android.app.Fragment;
-import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,22 +22,22 @@ import java.util.List;
 
 public class TvSeriesTableFragment extends Fragment {
 
-    private AdatperTable adapterTable;
-    private AdapterHead adapterHead;
+    private SeriesSelectorTableAdapter adapterTable;
+    private SeriesSelectorHeadAdapter seriesSelectorHeadAdapter;
     private List<Integer> tableList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapterTable = new AdatperTable();
+        adapterTable = new SeriesSelectorTableAdapter();
         tableList = new ArrayList<>();
         for (int i = 1; i < 106; i++) {
             tableList.add(i);
         }
         adapterTable.setDataList(tableList);
 
-        adapterHead = new AdapterHead();
-        adapterHead.setList(tableList);
+        seriesSelectorHeadAdapter = new SeriesSelectorHeadAdapter();
+        seriesSelectorHeadAdapter.setList(tableList);
     }
 
     @Nullable
@@ -67,8 +66,8 @@ public class TvSeriesTableFragment extends Fragment {
         RecyclerView head = (RecyclerView) view.findViewById(R.id.head);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         head.setLayoutManager(linearLayoutManager);
-        head.setAdapter(adapterHead);
-        adapterHead.notifyDataSetChanged();
+        head.setAdapter(seriesSelectorHeadAdapter);
+        seriesSelectorHeadAdapter.notifyDataSetChanged();
         return view;
     }
 
