@@ -25,9 +25,9 @@ public class SeriesTableFragment extends Fragment {
 
     private SeriesSelectorTableAdapter adapterTable;
     private SeriesSelectorHeadAdapter seriesSelectorHeadAdapter;
-    private List<Integer> tableList;
-
     private SeriesCallback mListener;
+    private final int blockSize = 50;
+    private boolean overLim = false;
 
     public void setmListener(SeriesCallback mListener) {
         this.mListener = mListener;
@@ -41,20 +41,25 @@ public class SeriesTableFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        tableList = new ArrayList<>();
+        List<Integer> tableList = new ArrayList<>();
         for (int i = 1; i < 106; i++) {
             tableList.add(i);
         }
 
+        List<List<Integer>> resultList = cal(tableList);
+
+        if (resultList.size() <= 0)
+            return;
+
         // head
         seriesSelectorHeadAdapter = new SeriesSelectorHeadAdapter();
         seriesSelectorHeadAdapter.setmListener(OnClickHead);
-        seriesSelectorHeadAdapter.setList(tableList);
+        seriesSelectorHeadAdapter.setList(resultList);
 
         // 表格
         adapterTable = new SeriesSelectorTableAdapter();
         adapterTable.setmListener(OnClickTable);
-        adapterTable.setDataList(tableList);
+        adapterTable.setDataList(resultList.get(0));
     }
 
     @Nullable
@@ -80,6 +85,14 @@ public class SeriesTableFragment extends Fragment {
         adapterTable.notifyDataSetChanged();
 
         RecyclerView head = (RecyclerView) view.findViewById(R.id.head);
+        head.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                outRect.left = 10;
+                outRect.right = 10;
+            }
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         head.setLayoutManager(linearLayoutManager);
         head.setAdapter(seriesSelectorHeadAdapter);
@@ -87,6 +100,37 @@ public class SeriesTableFragment extends Fragment {
         return view;
     }
 
+
+    private List<List<Integer>> cal(List<Integer> list) {
+        List<List<Integer>> result = new ArrayList<>();
+        int TotalCount = list.size();
+        if (TotalCount <= 50) {
+            overLim = false;
+            return result;
+        }
+
+        overLim = true;
+
+        int BlockNum = TotalCount / blockSize;
+        int LastBlockContentCount = TotalCount % blockSize;
+
+        Log.e("ZHZ", "总数 ： " + TotalCount + " block 数量: " + BlockNum + " 最后一个block size : " + LastBlockContentCount);
+
+        int startIndex = 0;
+
+        for (int i = 0; i < BlockNum; i++) {
+            startIndex = i * blockSize;
+            List<Integer> temp = list.subList(startIndex, startIndex + blockSize);
+            result.add(temp);
+        }
+
+        if (LastBlockContentCount > 0) {
+            List<Integer> temp3 = list.subList(startIndex + blockSize, TotalCount - 1);
+            result.add(temp3);
+        }
+
+        return result;
+    }
 
     private SeriesSelectorHeadAdapter.OnItemClick OnClickHead = new SeriesSelectorHeadAdapter.OnItemClick() {
         @Override

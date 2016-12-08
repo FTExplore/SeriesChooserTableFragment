@@ -14,9 +14,9 @@ import java.util.List;
 
 public class SeriesSelectorHeadAdapter extends RecyclerView.Adapter<SeriesSelectorHeadAdapter.ViewHolder> {
 
-    private List<Integer> list;
+    private List<List<Integer>> list;
 
-    public void setList(List<Integer> list) {
+    public void setList(List<List<Integer>> list) {
         this.list = list;
     }
 
@@ -41,7 +41,11 @@ public class SeriesSelectorHeadAdapter extends RecyclerView.Adapter<SeriesSelect
         if (holder == null)
             return;
 
-        holder.num.setText(String.valueOf(list.get(position)));
+        List<Integer> temp = list.get(position);
+
+        String title = temp.get(0) + "-" + temp.get(temp.size() - 1);
+
+        holder.num.setText(title);
     }
 
     @Override
