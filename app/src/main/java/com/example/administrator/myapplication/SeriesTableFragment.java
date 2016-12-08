@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,15 +30,21 @@ public class SeriesTableFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapterTable = new SeriesSelectorTableAdapter();
+
         tableList = new ArrayList<>();
         for (int i = 1; i < 106; i++) {
             tableList.add(i);
         }
-        adapterTable.setDataList(tableList);
 
+        // head
         seriesSelectorHeadAdapter = new SeriesSelectorHeadAdapter();
+        seriesSelectorHeadAdapter.setmListener(OnClickHead);
         seriesSelectorHeadAdapter.setList(tableList);
+
+        // 表格
+        adapterTable = new SeriesSelectorTableAdapter();
+        adapterTable.setmListener(OnClickTable);
+        adapterTable.setDataList(tableList);
     }
 
     @Nullable
@@ -45,7 +52,6 @@ public class SeriesTableFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tv_series, null);
         RecyclerView table = (RecyclerView) view.findViewById(R.id.table);
-
         table.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
@@ -70,5 +76,21 @@ public class SeriesTableFragment extends Fragment {
         seriesSelectorHeadAdapter.notifyDataSetChanged();
         return view;
     }
+
+
+    private SeriesSelectorHeadAdapter.OnItemClick OnClickHead = new SeriesSelectorHeadAdapter.OnItemClick() {
+        @Override
+        public void OnClick(int position) {
+            Log.e("ZHZ", "头部点击");
+        }
+    };
+
+    private SeriesSelectorTableAdapter.OnItemClick OnClickTable = new SeriesSelectorTableAdapter.OnItemClick() {
+        @Override
+        public void OnClick(int positoin) {
+            Log.e("ZHZ", "内容点击");
+        }
+    };
+
 
 }

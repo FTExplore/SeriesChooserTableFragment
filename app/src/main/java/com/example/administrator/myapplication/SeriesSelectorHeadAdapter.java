@@ -20,6 +20,16 @@ public class SeriesSelectorHeadAdapter extends RecyclerView.Adapter<SeriesSelect
         this.list = list;
     }
 
+    private OnItemClick mListener;
+
+    public void setmListener(OnItemClick mListener) {
+        this.mListener = mListener;
+    }
+
+    interface OnItemClick {
+        void OnClick(int position);
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_head, parent, false);
@@ -39,12 +49,19 @@ public class SeriesSelectorHeadAdapter extends RecyclerView.Adapter<SeriesSelect
         return list == null ? 0 : list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView num;
 
         ViewHolder(View itemView) {
             super(itemView);
             num = (TextView) itemView.findViewById(R.id.num_head);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mListener != null)
+                mListener.OnClick(getAdapterPosition());
         }
     }
 }

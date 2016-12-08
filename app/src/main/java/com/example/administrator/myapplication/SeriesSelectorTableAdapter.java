@@ -20,6 +20,16 @@ public class SeriesSelectorTableAdapter extends RecyclerView.Adapter<SeriesSelec
         this.dataList = dataList;
     }
 
+    private SeriesSelectorTableAdapter.OnItemClick mListener;
+
+    public void setmListener(SeriesSelectorTableAdapter.OnItemClick mListener) {
+        this.mListener = mListener;
+    }
+
+    interface OnItemClick {
+        void OnClick(int positoin);
+    }
+
     @Override
     public TableViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
@@ -39,13 +49,20 @@ public class SeriesSelectorTableAdapter extends RecyclerView.Adapter<SeriesSelec
         return dataList == null ? 0 : dataList.size();
     }
 
-    class TableViewHolder extends RecyclerView.ViewHolder {
+    class TableViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView num;
 
         TableViewHolder(View itemView) {
             super(itemView);
             num = (TextView) itemView.findViewById(R.id.item);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mListener != null)
+                mListener.OnClick(getAdapterPosition());
         }
     }
 }
