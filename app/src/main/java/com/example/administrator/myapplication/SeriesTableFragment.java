@@ -43,7 +43,7 @@ public class SeriesTableFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         List<Integer> tableList = new ArrayList<>();
-        for (int i = 1; i < 106; i++) {
+        for (int i = 1; i < 706; i++) {
             tableList.add(i);
         }
 
