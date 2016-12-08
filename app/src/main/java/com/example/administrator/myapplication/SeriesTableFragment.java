@@ -27,6 +27,16 @@ public class SeriesTableFragment extends Fragment {
     private SeriesSelectorHeadAdapter seriesSelectorHeadAdapter;
     private List<Integer> tableList;
 
+    private SeriesCallback mListener;
+
+    public void setmListener(SeriesCallback mListener) {
+        this.mListener = mListener;
+    }
+
+    interface SeriesCallback {
+        void OnSelect();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +98,10 @@ public class SeriesTableFragment extends Fragment {
     private SeriesSelectorTableAdapter.OnItemClick OnClickTable = new SeriesSelectorTableAdapter.OnItemClick() {
         @Override
         public void OnClick(int positoin) {
-            Log.e("ZHZ", "内容点击");
+            Log.e("ZHZ", "内容点击 : " + positoin);
+            if (mListener == null)
+                return;
+            mListener.OnSelect();
         }
     };
 
