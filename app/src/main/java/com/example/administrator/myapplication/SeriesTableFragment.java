@@ -20,7 +20,7 @@ import java.util.List;
  * Created by FTE on 2016/12/8.
  */
 
-public class TvSeriesTableFragment extends Fragment {
+public class SeriesTableFragment extends Fragment {
 
     private SeriesSelectorTableAdapter adapterTable;
     private SeriesSelectorHeadAdapter seriesSelectorHeadAdapter;
