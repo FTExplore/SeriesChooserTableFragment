@@ -28,6 +28,7 @@ public class SeriesTableFragment extends Fragment {
     private SeriesCallback mListener;
     private final int blockSize = 50;
     private boolean overLim = false;
+    List<List<Integer>> resultList;
 
     public void setmListener(SeriesCallback mListener) {
         this.mListener = mListener;
@@ -46,7 +47,8 @@ public class SeriesTableFragment extends Fragment {
             tableList.add(i);
         }
 
-        List<List<Integer>> resultList = cal(tableList);
+
+        resultList = cal(tableList);
 
         if (resultList.size() <= 0)
             return;
@@ -136,6 +138,8 @@ public class SeriesTableFragment extends Fragment {
         @Override
         public void OnClick(int position) {
             Log.e("ZHZ", "头部点击");
+            adapterTable.setDataList(resultList.get(position));
+            adapterTable.notifyDataSetChanged();
         }
     };
 
