@@ -1,5 +1,6 @@
 package com.example.administrator.myapplication;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import java.util.List;
 public class SeriesSelectorHeadAdapter extends RecyclerView.Adapter<SeriesSelectorHeadAdapter.ViewHolder> {
 
     private List<List<Integer>> list;
+
+    private int CurrentFocusPosition = 0;
 
     public void setList(List<List<Integer>> list) {
         this.list = list;
@@ -46,6 +49,12 @@ public class SeriesSelectorHeadAdapter extends RecyclerView.Adapter<SeriesSelect
         String title = temp.get(0) + "-" + temp.get(temp.size() - 1);
 
         holder.num.setText(title);
+
+        if (CurrentFocusPosition == position) {
+            holder.num.setTextColor(Color.parseColor("#69BE87"));
+        } else {
+            holder.num.setTextColor(Color.parseColor("#000000"));
+        }
     }
 
     @Override
@@ -66,6 +75,8 @@ public class SeriesSelectorHeadAdapter extends RecyclerView.Adapter<SeriesSelect
         public void onClick(View v) {
             if (mListener != null)
                 mListener.OnClick(getAdapterPosition());
+            CurrentFocusPosition = getAdapterPosition();
+            notifyDataSetChanged();
         }
     }
 }
