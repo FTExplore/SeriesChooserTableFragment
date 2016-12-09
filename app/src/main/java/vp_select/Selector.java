@@ -23,6 +23,11 @@ import java.util.List;
 
 public class Selector extends Fragment {
 
+    private List<View> list;
+
+    public void setList(List<View> list) {
+        this.list = list;
+    }
 
     @Nullable
     @Override
@@ -30,48 +35,40 @@ public class Selector extends Fragment {
         View view = inflater.inflate(R.layout.selector, null);
         ViewPager mViewPager = (ViewPager) view.findViewById(R.id.vp);
         TabLayout tablayout = (TabLayout) view.findViewById(R.id.tablayout);
-        final List<TextView> list = new ArrayList<>();
-
-        for (int i = 0; i < 100; i++) {
-            TextView tv = new TextView(getActivity());
-            tv.setText("tab-" + i);
-            list.add(tv);
-        }
-
-
-        mViewPager.setAdapter(new PagerAdapter() {
-            @Override
-            public int getCount() {
-                return list.size();
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return "tab-" + position;
-            }
-
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-
-                container.addView(list.get(position));
-                return list.get(position);
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-//                super.destroyItem(container, position, object);
-                container.removeView(list.get(position));
-            }
-
-            @Override
-            public boolean isViewFromObject(View view, Object object) {
-                return view == object;
-            }
-        });
-
+        mViewPager.setAdapter(mPagerAdapter);
         tablayout.setupWithViewPager(mViewPager);
         return view;
     }
 
+
+    private PagerAdapter mPagerAdapter = new PagerAdapter() {
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "tab-" + position;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+
+            container.addView(list.get(position));
+            return list.get(position);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+//                super.destroyItem(container, position, object);
+            container.removeView(list.get(position));
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+    };
 
 }
