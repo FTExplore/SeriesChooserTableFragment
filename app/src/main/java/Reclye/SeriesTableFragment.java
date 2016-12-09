@@ -1,4 +1,4 @@
-package com.example.administrator.myapplication;
+package Reclye;
 
 
 import android.app.Fragment;
@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.administrator.myapplication.R;
 
 import java.util.ArrayList;
 import java.util.List;

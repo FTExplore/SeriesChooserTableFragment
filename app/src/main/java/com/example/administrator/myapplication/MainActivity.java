@@ -6,6 +6,8 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 
+import Reclye.SeriesTableFragment;
+
 public class MainActivity extends Activity {
 
     @Override
