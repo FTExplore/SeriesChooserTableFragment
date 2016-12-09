@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import Reclye.SeriesTableFragment;
+import vp_select.Selector;
 
 public class MainActivity extends Activity {
 
@@ -17,7 +18,7 @@ public class MainActivity extends Activity {
     }
 
     public void go(View view) {
-        Fragment fragment = new SeriesTableFragment();
+        Fragment fragment = new Selector();
         android.app.FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.fl, fragment);
