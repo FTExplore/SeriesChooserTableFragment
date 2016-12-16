@@ -19,10 +19,10 @@ public class utils {
      * @param blockArgs 区块大小
      * @return 分隔好的集合
      */
-    public static List<List<Integer>> cal(List<Integer> list, int blockArgs) {
+    public static <T> List<List<T>> cal(List<T> list, int blockArgs) {
 
         int blockSize = blockArgs;
-        List<List<Integer>> result = new ArrayList<>();
+        List<List<T>> result = new ArrayList<>();
         int TotalCount = list.size();
         if (TotalCount <= 50) {
             return result;
@@ -37,12 +37,12 @@ public class utils {
 
         for (int i = 0; i < BlockNum; i++) {
             startIndex = i * blockSize;
-            List<Integer> temp = list.subList(startIndex, startIndex + blockSize);
+            List<T> temp = list.subList(startIndex, startIndex + blockSize);
             result.add(temp);
         }
 
         if (LastBlockContentCount > 0) {
-            List<Integer> temp3 = list.subList(startIndex + blockSize, TotalCount - 1);
+            List<T> temp3 = list.subList(startIndex + blockSize, TotalCount - 1);
             result.add(temp3);
         }
 
